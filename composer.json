@@ -1,0 +1,24 @@
+{
+    "name": "martanlv/koki",
+    "description": "Php data structures and utilities",
+    "type": "library",
+    "keywords": ["interval", "tree"],
+    "license": "MIT",
+    "require": {
+        "php": "^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.5",
+        "ivoba/dump-die-shortcuts": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "MartanLV\\Koki\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    }
+}
