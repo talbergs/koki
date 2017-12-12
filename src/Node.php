@@ -36,9 +36,29 @@ class Node
         $this->interval = $interval;
         $this->left = $left;
         $this->right = $right;
-        $this->max = $max ? $max : $inteval->high;
+        $this->max = $max ? $max : $interval->high;
     }
 
+    /**
+     * returns intervals that fall within interval range
+     *
+     * @return void
+     */
+    public function all(): array
+    {
+        return iterator_to_array($this->yieldAll(), false);
+    }
+
+    /**
+     * undocumented function
+     *
+     * @return void
+     */
+    public function yieldAll()
+    {
+        return $this->yieldSelect(-1, $this->max + 1);
+    }
+    
     /**
      * returns intervals that fall within interval range
      *

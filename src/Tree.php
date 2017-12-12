@@ -73,4 +73,23 @@ class Tree extends Node
     {
         return $this->root ? $this->root->yieldSelect($low, $high) : [];
     }
+
+    /**
+     *
+     * @return void
+     */
+    public function all(): array
+    {
+        return $this->root ? $this->root->all() : [];
+    }
+
+    /**
+     * undocumented function
+     *
+     * @return void
+     */
+    public function yieldAll()
+    {
+        return $this->root ? $this->root->yieldAll() : [];
+    }
 }

@@ -13,6 +13,24 @@ use Tests\ImplementedInterval;
 final class TreeTest extends TestCase
 {
 
+    public function testSelectsAll(): void
+    {
+        $b = [
+            new Interval(3, 5),
+            new Interval(1, 1),
+            new Interval(4, 6),
+            new Interval(3, 5),
+            new Interval(5, 5),
+            new Interval(4, 4),
+            new Interval(3, 3),
+            new Interval(3, 3),
+            new Interval(3, 5),
+            new Interval(3, 5),
+        ];
+        $a = new Tree($b);
+        $this->assertEquals(count($a->all()), count($b));
+    }
+
     public function testFlowsEmpty(): void
     {
         $a = new Tree([]);
@@ -81,7 +99,7 @@ final class TreeTest extends TestCase
         $this->assertEquals(2, count($b));
     }
 
-    public function testSelectsAll(): void
+    public function testSelectsAllRange(): void
     {
         $i = [
             new Interval(4, 6),
