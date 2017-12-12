@@ -69,6 +69,19 @@ class Tree extends Node
         return $this->root ? $this->root->select($low, $high) : [];
     }
 
+    /**
+     * understandable var dump
+     */
+    public function __debugInfo() {
+        $arr = $this->all();
+
+        usort($arr, function(IntervalInterface $i0, IntervalInterface $i) {
+            return $i0->getStart() <=> $i->getStart();
+        });
+
+        return $arr;
+    }
+
     public function yieldSelect(int $low, int $high)
     {
         return $this->root ? $this->root->yieldSelect($low, $high) : [];
