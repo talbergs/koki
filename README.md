@@ -2,6 +2,14 @@ Interval Tree: The idea is to augment a self-balancing Binary Search Tree (BST) 
 ~to maintain set of intervals~ so that all operations can be done in O(Logn) time.
 <hr />
 
+[![Latest Stable Version](https://poser.pugx.org/martanlv/koki/v/stable)](https://packagist.org/packages/martanlv/koki)
+[![Total Downloads](https://poser.pugx.org/martanlv/koki/downloads)](https://packagist.org/packages/martanlv/koki)
+[![Latest Unstable Version](https://poser.pugx.org/martanlv/koki/v/unstable)](https://packagist.org/packages/martanlv/koki)
+[![License](https://poser.pugx.org/martanlv/koki/license)](https://packagist.org/packages/martanlv/koki)
+[![Monthly Downloads](https://poser.pugx.org/martanlv/koki/d/monthly)](https://packagist.org/packages/martanlv/koki)
+[![Daily Downloads](https://poser.pugx.org/martanlv/koki/d/daily)](https://packagist.org/packages/martanlv/koki)
+[![composer.lock](https://poser.pugx.org/martanlv/koki/composerlock)](https://packagist.org/packages/martanlv/koki)
+
 [![Maintainability](https://api.codeclimate.com/v1/badges/7d29ce466d93096a8a23/maintainability)](https://codeclimate.com/github/MartanLV/koki/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/7d29ce466d93096a8a23/test_coverage)](https://codeclimate.com/github/MartanLV/koki/test_coverage)
 
