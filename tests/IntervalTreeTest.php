@@ -1,9 +1,10 @@
 <?php
+
 declare(strict_types=1);
 
-use PHPUnit\Framework\TestCase;
-use MartanLV\Koki\Tree;
 use MartanLV\Koki\Interval;
+use MartanLV\Koki\Tree;
+use PHPUnit\Framework\TestCase;
 use Tests\ExtendedInterval;
 use Tests\ImplementedInterval;
 
@@ -12,7 +13,6 @@ use Tests\ImplementedInterval;
  */
 final class TreeTest extends TestCase
 {
-
     public function testSelectsAll(): void
     {
         $b = [
@@ -34,7 +34,7 @@ final class TreeTest extends TestCase
     public function testFlowsEmpty(): void
     {
         $a = new Tree([]);
-        foreach($a->yieldSelect(1, 2) as $i) {
+        foreach ($a->yieldSelect(1, 2) as $i) {
             $this->assertEmpty(1);
         }
 
@@ -55,10 +55,10 @@ final class TreeTest extends TestCase
             new Interval(3, 5),
             new Interval(3, 5),
         ]);
-        foreach($a->yieldSelect(2, 4) as $i) {
+        foreach ($a->yieldSelect(2, 4) as $i) {
             $this->assertEquals($i->getStart(), 3);
             $this->assertEquals($i->getEnd(), 3);
-        };
+        }
     }
 
     public function testExtends(): void
@@ -69,9 +69,9 @@ final class TreeTest extends TestCase
             new ExtendedInterval(4, 6, 231),
             new ExtendedInterval(3, 5, 231),
         ]);
-		foreach ($a->yieldSelect(2, 6) as $i) {
-			$this->assertEquals(231, $i->meta);
-		}
+        foreach ($a->yieldSelect(2, 6) as $i) {
+            $this->assertEquals(231, $i->meta);
+        }
     }
 
     public function testImplements(): void
@@ -82,9 +82,9 @@ final class TreeTest extends TestCase
             new ImplementedInterval(4, 6, 231),
             new ImplementedInterval(3, 5, 231),
         ]);
-		foreach ($a->yieldSelect(2, 6) as $i) {
-			$this->assertEquals(231, $i->meta);
-		}
+        foreach ($a->yieldSelect(2, 6) as $i) {
+            $this->assertEquals(231, $i->meta);
+        }
     }
 
     public function testSelectsDuplicates(): void

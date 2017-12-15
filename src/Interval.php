@@ -1,10 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace MartanLV\Koki;
 
 /**
- * Class Interval
+ * Class Interval.
+ *
  * @author yourname
  */
 class Interval implements IntervalInterface
@@ -17,7 +19,7 @@ class Interval implements IntervalInterface
     protected $high;
 
     /**
-     * undocumented function
+     * undocumented function.
      *
      * @return void
      */
@@ -29,11 +31,11 @@ class Interval implements IntervalInterface
 
     public function getEnd(): int
     {
-		return $this->high;
-	}
+        return $this->high;
+    }
 
     public function getStart(): int
     {
-		return $this->low;
-	}
+        return $this->low;
+    }
 }

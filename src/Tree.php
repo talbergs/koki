@@ -6,20 +6,22 @@ namespace MartanLV\Koki;
 
 /**
  * Augmented tree
- * Class StaticTree
+ * Class StaticTree.
+ *
  * @author yourname
  */
 class Tree extends Node
 {
     /**
-     * undocumented function
+     * undocumented function.
      *
      * @param $intervals array of Interval
+     *
      * @return void
      */
     public function __construct(array $intervals, bool $preSorted = false)
     {
-        !$preSorted && usort($intervals, function(IntervalInterface $i0, IntervalInterface $i) {
+        !$preSorted && usort($intervals, function (IntervalInterface $i0, IntervalInterface $i) {
             return $i0->getStart() <=> $i->getStart();
         });
         $this->root = $this->toTree($intervals);
@@ -37,7 +39,7 @@ class Tree extends Node
         $mid = (int) floor($len / 2);
 
         if (!$len) {
-            return null;
+            return;
         }
 
         array_walk($intervals, function (IntervalInterface $el) use (&$max) {
@@ -60,7 +62,7 @@ class Tree extends Node
 
     /**
      * returns intervals that exclusively fall within range given
-     * to retrieve eather bound inclusevely, just modify parameters
+     * to retrieve eather bound inclusevely, just modify parameters.
      *
      * @return void
      */
@@ -70,12 +72,13 @@ class Tree extends Node
     }
 
     /**
-     * understandable var dump
+     * understandable var dump.
      */
-    public function __debugInfo() {
+    public function __debugInfo()
+    {
         $arr = $this->all();
 
-        usort($arr, function(IntervalInterface $i0, IntervalInterface $i) {
+        usort($arr, function (IntervalInterface $i0, IntervalInterface $i) {
             return $i0->getStart() <=> $i->getStart();
         });
 
@@ -88,7 +91,6 @@ class Tree extends Node
     }
 
     /**
-     *
      * @return void
      */
     public function all(): array
@@ -97,7 +99,7 @@ class Tree extends Node
     }
 
     /**
-     * undocumented function
+     * undocumented function.
      *
      * @return void
      */
