@@ -5,6 +5,12 @@ Interval Tree: The idea is to augment a self-balancing Binary Search Tree (BST) 
 [![Maintainability](https://api.codeclimate.com/v1/badges/7d29ce466d93096a8a23/maintainability)](https://codeclimate.com/github/MartanLV/koki/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/7d29ce466d93096a8a23/test_coverage)](https://codeclimate.com/github/MartanLV/koki/test_coverage)
 
+
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/MartanLV/koki/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/MartanLV/koki/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/MartanLV/koki/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/MartanLV/koki/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/MartanLV/koki/badges/build.png?b=master)](https://scrutinizer-ci.com/g/MartanLV/koki/build-status/master)
+[![Code Intelligence Status](https://scrutinizer-ci.com/g/MartanLV/koki/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
+
 Todo:
 - [ ] ****Segment tree* stores intervals, and optimized for "which of these intervals contains a given point" queries.
 - [x] *Interval tree* stores intervals as well, but optimized for "which of these intervals overlap with a given interval" queries. It can also be used for point queries - similar to segment tree.
