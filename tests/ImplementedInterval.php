@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Tests;
@@ -6,7 +7,8 @@ namespace Tests;
 use MartanLV\Koki\IntervalInterface;
 
 /**
- * Class Interval
+ * Class Interval.
+ *
  * @author yourname
  */
 class ImplementedInterval implements IntervalInterface
@@ -16,7 +18,7 @@ class ImplementedInterval implements IntervalInterface
     public $meta;
 
     /**
-     * undocumented function
+     * undocumented function.
      *
      * @return void
      */
@@ -29,11 +31,11 @@ class ImplementedInterval implements IntervalInterface
 
     public function getEnd(): int
     {
-		return $this->high;
-	}
+        return $this->high;
+    }
 
     public function getStart(): int
     {
-		return $this->low;
-	}
+        return $this->low;
+    }
 }

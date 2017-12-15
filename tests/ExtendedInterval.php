@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Tests;
@@ -6,16 +7,16 @@ namespace Tests;
 use MartanLV\Koki\Interval;
 
 /**
- * Class Interval
+ * Class Interval.
+ *
  * @author yourname
  */
 class ExtendedInterval extends Interval
 {
-
     public $meta;
 
     /**
-     * undocumented function
+     * undocumented function.
      *
      * @return void
      */
@@ -24,5 +25,4 @@ class ExtendedInterval extends Interval
         parent::__construct($low, $high);
         $this->meta = $meta;
     }
-
 }
