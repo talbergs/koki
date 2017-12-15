@@ -11,6 +11,8 @@ Interval Tree: The idea is to augment a self-balancing Binary Search Tree (BST) 
 [![Build Status](https://scrutinizer-ci.com/g/MartanLV/koki/badges/build.png?b=master)](https://scrutinizer-ci.com/g/MartanLV/koki/build-status/master)
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/MartanLV/koki/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
 
+[![StyleCI](https://styleci.io/repos/113767283/shield?branch=master)](https://styleci.io/repos/113767283)
+
 Todo:
 - [ ] ****Segment tree* stores intervals, and optimized for "which of these intervals contains a given point" queries.
 - [x] *Interval tree* stores intervals as well, but optimized for "which of these intervals overlap with a given interval" queries. It can also be used for point queries - similar to segment tree.
