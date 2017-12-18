@@ -83,6 +83,11 @@ class Tree extends Node
         return $arr;
     }
 
+    public function yieldInterSelect(int $low, int $high)
+    {
+        return $this->root ? $this->root->yieldInterSelect($low, $high) : [];
+    }
+
     public function interSelect(int $low, int $high): array
     {
         return $this->root ? $this->root->interSelect($low, $high) : [];

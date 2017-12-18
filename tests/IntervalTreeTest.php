@@ -13,6 +13,65 @@ use Tests\ImplementedInterval;
 final class TreeTest extends TestCase
 {
 
+    public function testInterSelectsYields(): void
+    {
+        $b = [
+            new Interval(9, 11), // i=0
+            new Interval(5, 15), // <<
+            new Interval(10, 20), // <<
+            new Interval(30, 40), // <<
+            new Interval(40, 50), // <<
+            new Interval(60, 70), // <<
+            new Interval(65, 70), // <<
+            new Interval(71, 72), // i=7
+        ];
+
+        $a = (new Tree($b));
+        $len = 0;
+        foreach ($a->yieldInterSelect(15, 70) as $i) {
+            $index = array_search($i, $b);
+            $this->assertTrue(!in_array($index, [0, 7]));
+            $len ++;
+        }
+
+        $this->assertEquals($len, 6);
+    }
+
+    public function testInterSelects3(): void
+    {
+        $b = [
+            new Interval(9, 11),
+            new Interval(5, 15), // <<
+            new Interval(10, 20), // <<
+            new Interval(30, 40), // <<
+            new Interval(40, 50), // <<
+            new Interval(60, 70), // <<
+            new Interval(65, 70), // <<
+            new Interval(71, 72),
+        ];
+        $a = (new Tree($b));
+        $c = $a->interSelect(15, 70);
+
+        $this->assertEquals("5-15;10-20;30-40;40-50;60-70;65-70;", $this->sig($c));
+    }
+
+    public function testInterSelects2(): void
+    {
+        $b = [
+            new Interval(1, 10),
+            new Interval(5, 15), // <<
+            new Interval(10, 20), // <<
+            new Interval(30, 40), // <<
+            new Interval(40, 50), // <<
+            new Interval(60, 70), // <<
+            new Interval(65, 70), // <<
+        ];
+        $a = (new Tree($b));
+        $c = $a->interSelect(15, 70);
+
+        $this->assertEquals("5-15;10-20;30-40;40-50;60-70;65-70;", $this->sig($c));
+    }
+
     public function testInterSelects(): void
     {
         $b = [
@@ -24,9 +83,22 @@ final class TreeTest extends TestCase
             new Interval(60, 70), // <<
             new Interval(65, 70),
         ];
-        $a = new Tree($b);
-        $c = $a->interSelect(35, 61);
-        $this->assertEquals(3, count($c));
+        $a = (new Tree($b));
+        $c = $a->interSelect(29, 62);
+
+        $this->assertEquals("30-40;40-50;60-70;", $this->sig($c));
+    }
+
+    public function sig(array $c): string
+    {
+        $sig = '';
+        usort($c, function ($a, $b) {
+            return $a <=> $b;
+        });
+        array_map(function ($i) use (&$sig) {
+            $sig .= "{$i->getStart()}-{$i->getEnd()};";
+        }, $c);
+        return $sig;
     }
 
     public function testSelectsAll(): void

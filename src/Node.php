@@ -86,26 +86,22 @@ class Node
      */
     public function yieldInterSelect(int $low, int $high)
     {
-        /**
-         * does current node matches?
-         */
-        if ($this->interval->getEnd() - $low < $high && $this->interval->getStart() + $high > $low) {
+        $edgeR = $high >= $this->interval->getStart() && $high <= $this->interval->getEnd();
+        $edgeL = $low >= $this->interval->getStart() && $low <= $this->interval->getEnd();
+        $part = $this->interval->getStart() >= $low && $this->interval->getEnd() <= $high;
+        $whole = $this->interval->getStart() <= $low && $this->interval->getEnd() >= $high;
+
+        $currentNodeMatches = $edgeR || $edgeL || $part || $whole;
+        if ($currentNodeMatches) {
             yield $this->interval;
         }
 
-        /**
-         * since the node's low value is less than the "select end" value,
-         * we must search in the right subtree. If it exists.
-         */
-        if ($this->right && $this->interval->getStart() < $high) {
+        if ($this->right && $this->interval->getStart() <= $high) {
             yield from $this->right->yieldInterSelect($low, $high);
         }
-        /**
-         * If the left subtree's max exceeds the quiery's low value,
-         * so we must search the left subtree as well.
-         */
-        if ($this->left && $this->left->max > $low) {
-            yield from $this->left->yieldSelect($low, $high);
+
+        if ($this->left && $this->left->max >= $low) {
+            yield from $this->left->yieldInterSelect($low, $high);
         }
 
     }
