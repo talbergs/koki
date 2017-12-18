@@ -19,7 +19,7 @@ class Tree extends Node
      */
     public function __construct(array $intervals, bool $preSorted = false)
     {
-        !$preSorted && usort($intervals, function(IntervalInterface $i0, IntervalInterface $i) {
+        !$preSorted && usort($intervals, function (IntervalInterface $i0, IntervalInterface $i) {
             return $i0->getStart() <=> $i->getStart();
         });
         $this->root = $this->toTree($intervals);
@@ -34,7 +34,7 @@ class Tree extends Node
     {
         $max = 0;
         $len = count($intervals);
-        $mid = (int) floor($len / 2);
+        $mid = (int)floor($len / 2);
 
         if (!$len) {
             return null;
@@ -72,14 +72,20 @@ class Tree extends Node
     /**
      * understandable var dump
      */
-    public function __debugInfo() {
+    public function __debugInfo()
+    {
         $arr = $this->all();
 
-        usort($arr, function(IntervalInterface $i0, IntervalInterface $i) {
+        usort($arr, function (IntervalInterface $i0, IntervalInterface $i) {
             return $i0->getStart() <=> $i->getStart();
         });
 
         return $arr;
+    }
+
+    public function interSelect(int $low, int $high): array
+    {
+        return $this->root ? $this->root->interSelect($low, $high) : [];
     }
 
     public function yieldSelect(int $low, int $high)

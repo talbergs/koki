@@ -29,11 +29,11 @@ class Interval implements IntervalInterface
 
     public function getEnd(): int
     {
-		return $this->high;
-	}
+        return $this->high;
+    }
 
     public function getStart(): int
     {
-		return $this->low;
-	}
+        return $this->low;
+    }
 }
