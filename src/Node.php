@@ -1,10 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace MartanLV\Koki;
 
 /**
- * Class Node
+ * Class Node.
+ *
  * @author yourname
  */
 class Node
@@ -27,7 +29,7 @@ class Node
     public $right;
 
     /**
-     * undocumented function
+     * undocumented function.
      *
      * @return void
      */
@@ -40,7 +42,7 @@ class Node
     }
 
     /**
-     * returns intervals that fall within interval range
+     * returns intervals that fall within interval range.
      *
      * @return void
      */
@@ -50,7 +52,7 @@ class Node
     }
 
     /**
-     * undocumented function
+     * undocumented function.
      *
      * @return void
      */
@@ -60,7 +62,7 @@ class Node
     }
 
     /**
-     * returns intervals that touches a given range
+     * returns intervals that touches a given range.
      *
      * @return void
      */
@@ -70,7 +72,7 @@ class Node
     }
 
     /**
-     * returns intervals that fall within interval range
+     * returns intervals that fall within interval range.
      *
      * @return void
      */
@@ -80,7 +82,7 @@ class Node
     }
 
     /**
-     * returns intervals that touches a given range
+     * returns intervals that touches a given range.
      *
      * @return generator
      */
@@ -103,37 +105,35 @@ class Node
         if ($this->left && $this->left->max >= $low) {
             yield from $this->left->yieldInterSelect($low, $high);
         }
-
     }
 
     /**
-     * returns intervals that fall within interval range
+     * returns intervals that fall within interval range.
      *
      * @return generator
      */
     public function yieldSelect(int $low, int $high)
     {
-        /**
+        /*
          * does current node matches?
          */
         if ($this->interval->getEnd() < $high && $this->interval->getStart() > $low) {
             yield $this->interval;
         }
 
-        /**
+        /*
          * since the node's low value is less than the "select end" value,
          * we must search in the right subtree. If it exists.
          */
         if ($this->right && $this->interval->getStart() < $high) {
             yield from $this->right->yieldSelect($low, $high);
         }
-        /**
+        /*
          * If the left subtree's max exceeds the quiery's low value,
          * so we must search the left subtree as well.
          */
         if ($this->left && $this->left->max > $low) {
             yield from $this->left->yieldSelect($low, $high);
         }
-
     }
 }
