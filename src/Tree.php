@@ -6,15 +6,17 @@ namespace MartanLV\Koki;
 
 /**
  * Augmented tree
- * Class StaticTree
+ * Class StaticTree.
+ *
  * @author yourname
  */
 class Tree extends Node
 {
     /**
-     * undocumented function
+     * undocumented function.
      *
      * @param $intervals array of Interval
+     *
      * @return void
      */
     public function __construct(array $intervals, bool $preSorted = false)
@@ -34,10 +36,10 @@ class Tree extends Node
     {
         $max = 0;
         $len = count($intervals);
-        $mid = (int)floor($len / 2);
+        $mid = (int) floor($len / 2);
 
         if (!$len) {
-            return null;
+            return;
         }
 
         array_walk($intervals, function (IntervalInterface $el) use (&$max) {
@@ -60,7 +62,7 @@ class Tree extends Node
 
     /**
      * returns intervals that exclusively fall within range given
-     * to retrieve eather bound inclusevely, just modify parameters
+     * to retrieve eather bound inclusevely, just modify parameters.
      *
      * @return void
      */
@@ -70,7 +72,7 @@ class Tree extends Node
     }
 
     /**
-     * understandable var dump
+     * understandable var dump.
      */
     public function __debugInfo()
     {
@@ -99,7 +101,6 @@ class Tree extends Node
     }
 
     /**
-     *
      * @return void
      */
     public function all(): array
@@ -108,7 +109,7 @@ class Tree extends Node
     }
 
     /**
-     * undocumented function
+     * undocumented function.
      *
      * @return void
      */

@@ -1,9 +1,10 @@
 <?php
+
 declare(strict_types=1);
 
-use PHPUnit\Framework\TestCase;
-use MartanLV\Koki\Tree;
 use MartanLV\Koki\Interval;
+use MartanLV\Koki\Tree;
+use PHPUnit\Framework\TestCase;
 use Tests\ExtendedInterval;
 use Tests\ImplementedInterval;
 
@@ -12,7 +13,6 @@ use Tests\ImplementedInterval;
  */
 final class TreeTest extends TestCase
 {
-
     public function testInterSelectsYields(): void
     {
         $b = [
@@ -31,7 +31,7 @@ final class TreeTest extends TestCase
         foreach ($a->yieldInterSelect(15, 70) as $i) {
             $index = array_search($i, $b);
             $this->assertTrue(!in_array($index, [0, 7]));
-            $len ++;
+            $len++;
         }
 
         $this->assertEquals($len, 6);
@@ -52,7 +52,7 @@ final class TreeTest extends TestCase
         $a = (new Tree($b));
         $c = $a->interSelect(15, 70);
 
-        $this->assertEquals("5-15;10-20;30-40;40-50;60-70;65-70;", $this->sig($c));
+        $this->assertEquals('5-15;10-20;30-40;40-50;60-70;65-70;', $this->sig($c));
     }
 
     public function testInterSelects2(): void
@@ -69,7 +69,7 @@ final class TreeTest extends TestCase
         $a = (new Tree($b));
         $c = $a->interSelect(15, 70);
 
-        $this->assertEquals("5-15;10-20;30-40;40-50;60-70;65-70;", $this->sig($c));
+        $this->assertEquals('5-15;10-20;30-40;40-50;60-70;65-70;', $this->sig($c));
     }
 
     public function testInterSelects(): void
@@ -86,7 +86,7 @@ final class TreeTest extends TestCase
         $a = (new Tree($b));
         $c = $a->interSelect(29, 62);
 
-        $this->assertEquals("30-40;40-50;60-70;", $this->sig($c));
+        $this->assertEquals('30-40;40-50;60-70;', $this->sig($c));
     }
 
     public function sig(array $c): string
@@ -98,6 +98,7 @@ final class TreeTest extends TestCase
         array_map(function ($i) use (&$sig) {
             $sig .= "{$i->getStart()}-{$i->getEnd()};";
         }, $c);
+
         return $sig;
     }
 
@@ -146,7 +147,7 @@ final class TreeTest extends TestCase
         foreach ($a->yieldSelect(2, 4) as $i) {
             $this->assertEquals($i->getStart(), 3);
             $this->assertEquals($i->getEnd(), 3);
-        };
+        }
     }
 
     public function testExtends(): void
