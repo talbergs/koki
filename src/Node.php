@@ -209,7 +209,7 @@ class Node
         }
     }
 
-    public function remove()
+    public function remove(IntervalInterface $i)
     {
         if ($this->max > $i->getEnd()) {
             if ($this->left) {
