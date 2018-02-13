@@ -13,22 +13,20 @@ use Tests\ImplementedInterval;
  */
 final class TreeTest extends TestCase
 {
-
-
     public function makeTreeProvider($i)
     {
-	$datas = [];
+        $datas = [];
 
-	foreach ($this->randomBuildTree($i) as $tree) {
-		$datas[] = [$tree];
-	}
+        foreach ($this->randomBuildTree($i) as $tree) {
+            $datas[] = [$tree];
+        }
 
-	return $datas;
+        return $datas;
     }
 
     public function providerTestInterSelectsYields()
     {
-       return $this->makeTreeProvider([
+        return $this->makeTreeProvider([
             new Interval(9, 11), // i=0
             new Interval(5, 15), // <<
             new Interval(10, 20), // <<
@@ -45,7 +43,7 @@ final class TreeTest extends TestCase
      */
     public function testInterSelectsYields($a): void
     {
-	    $b = [
+        $b = [
             new Interval(9, 11), // i=0
             new Interval(5, 15), // <<
             new Interval(10, 20), // <<
@@ -67,35 +65,35 @@ final class TreeTest extends TestCase
 
     public function randomBuildTree(array $intervals)
     {
-    	$stress = getenv('KOKI_TEST_RANDOMIZE');
-	$stress = $stress ? $stress : 20;
+        $stress = getenv('KOKI_TEST_RANDOMIZE');
+        $stress = $stress ? $stress : 20;
 
-	// basic:
-	foreach (range(0, $stress) as $seed) {
-		shuffle($intervals);
-		yield new Tree($intervals);
-	}
-	// add
-	foreach (range(0, $stress) as $seed) {
-		shuffle($intervals);
-		yield $this->added($intervals);
-	}
-	// basic + add
-	foreach (range(0, $stress) as $seed) {
-		$i = $intervals;
-		shuffle($i);
-		$c = count($i);
-		$ii = array_splice($i, 0, rand(0, $c));
-		$t = new Tree($ii);
-		$this->add($t, $i);
-		yield $t;
-	}
-	// basic + delete + add
+        // basic:
+        foreach (range(0, $stress) as $seed) {
+            shuffle($intervals);
+            yield new Tree($intervals);
+        }
+        // add
+        foreach (range(0, $stress) as $seed) {
+            shuffle($intervals);
+            yield $this->added($intervals);
+        }
+        // basic + add
+        foreach (range(0, $stress) as $seed) {
+            $i = $intervals;
+            shuffle($i);
+            $c = count($i);
+            $ii = array_splice($i, 0, rand(0, $c));
+            $t = new Tree($ii);
+            $this->add($t, $i);
+            yield $t;
+        }
+        // basic + delete + add
     }
 
     public function providerTestInterSelects3()
     {
-       return $this->makeTreeProvider([
+        return $this->makeTreeProvider([
             new Interval(9, 11),
             new Interval(5, 15), // <<
             new Interval(10, 20), // <<
@@ -106,6 +104,7 @@ final class TreeTest extends TestCase
             new Interval(71, 72),
         ]);
     }
+
     /**
      * @dataProvider providerTestInterSelects3
      */
@@ -117,7 +116,7 @@ final class TreeTest extends TestCase
 
     public function providerTestInterSelects2()
     {
-       return $this->makeTreeProvider([
+        return $this->makeTreeProvider([
             new Interval(1, 10),
             new Interval(5, 15), // <<
             new Interval(10, 20), // <<
@@ -127,6 +126,7 @@ final class TreeTest extends TestCase
             new Interval(65, 70), // <<
         ]);
     }
+
     /**
      * @dataProvider providerTestInterSelects2
      */
@@ -138,16 +138,17 @@ final class TreeTest extends TestCase
 
     public function added(array $i)
     {
-	    $t = new Tree();
-	    foreach ($i as $e) {
-		    $t->add($e);
-	    }
-	    return $t;
+        $t = new Tree();
+        foreach ($i as $e) {
+            $t->add($e);
+        }
+
+        return $t;
     }
 
     public function providerTestInterSelects()
     {
-       return $this->makeTreeProvider([
+        return $this->makeTreeProvider([
             new Interval(1, 10),
             new Interval(5, 15),
             new Interval(10, 20),
@@ -158,7 +159,7 @@ final class TreeTest extends TestCase
             // new Interval(65, 70), // todo
         ]);
     }
-    
+
     /**
      * @dataProvider providerTestInterSelects
      */
@@ -183,7 +184,7 @@ final class TreeTest extends TestCase
 
     public function providerTestSelectsAll()
     {
-       return $this->makeTreeProvider([
+        return $this->makeTreeProvider([
             new Interval(3, 5),
             new Interval(1, 1),
             new Interval(4, 6),
@@ -196,7 +197,7 @@ final class TreeTest extends TestCase
             new Interval(3, 5),
         ]);
     }
-    
+
     /**
      * @dataProvider providerTestSelectsAll
      */
@@ -217,7 +218,7 @@ final class TreeTest extends TestCase
 
     public function providerTestPerformantGenerator()
     {
-       return $this->makeTreeProvider([
+        return $this->makeTreeProvider([
             new Interval(3, 5),
             new Interval(1, 1),
             new Interval(4, 6),
@@ -230,6 +231,7 @@ final class TreeTest extends TestCase
             new Interval(3, 5),
         ]);
     }
+
     /**
      * @dataProvider providerTestPerformantGenerator
      */
@@ -269,13 +271,14 @@ final class TreeTest extends TestCase
 
     public function providerTestSelectsDuplicates()
     {
-       return $this->makeTreeProvider([
+        return $this->makeTreeProvider([
             new Interval(3, 5),
             new Interval(1, 1),
             new Interval(4, 6),
             new Interval(3, 5),
         ]);
     }
+
     /**
      * @dataProvider providerTestSelectsDuplicates
      */
@@ -287,7 +290,7 @@ final class TreeTest extends TestCase
 
     public function providerTestSelectsAllRange()
     {
-       return $this->makeTreeProvider([
+        return $this->makeTreeProvider([
             new Interval(4, 6),
             new Interval(1, 1),
             new Interval(1, 1),
@@ -295,6 +298,7 @@ final class TreeTest extends TestCase
             new Interval(3, 5),
         ]);
     }
+
     /**
      * @dataProvider providerTestSelectsAllRange
      */
@@ -306,9 +310,8 @@ final class TreeTest extends TestCase
 
     public function add($tree, $intervals)
     {
-	    foreach ($intervals as $i) {
-		    $tree->add($i);
-	    }
+        foreach ($intervals as $i) {
+            $tree->add($i);
+        }
     }
 }
-

@@ -12,7 +12,8 @@ namespace MartanLV\Koki;
  */
 class Tree extends Node
 {
-	public $root;
+    public $root;
+
     /**
      * undocumented function.
      *
@@ -60,8 +61,9 @@ class Tree extends Node
             $max
         );
 
-	$node->root = &$this;
-	return $node;
+        $node->root = &$this;
+
+        return $node;
     }
 
     /**
@@ -81,11 +83,11 @@ class Tree extends Node
     }
 
     /**
-     * rebalance messed up tree overall
+     * rebalance messed up tree overall.
      */
     public function balance()
     {
-	    // todo
+        // todo
     }
 
     /**
@@ -142,63 +144,65 @@ class Tree extends Node
 
     public function removeRegion(int $low, int $high)
     {
-    	if (!$this->root) {
-	    return [];
-    	}
-	foreach($this->interSelectNode($low, $high) as $node) {
-		$this->remove($node);
-	}
+        if (!$this->root) {
+            return [];
+        }
+        foreach ($this->interSelectNode($low, $high) as $node) {
+            $this->remove($node);
+        }
     }
 
     public function remove(IntervalInterface $i)
     {
-	    if (!$i->left && !$i->right) {
-		    if ($i->root) {
-			    $i->root = null;
-		    }
-		    return;
-	    }
+        if (!$i->left && !$i->right) {
+            if ($i->root) {
+                $i->root = null;
+            }
 
-	    if ($i->left && $i->right) {
-	    		// todo
-		    return;
-	    }
-	    if ($i->left) {
-	    	$i->interval = &$i->left->interval;
-	    	$i->left = null;
-	    }
+            return;
+        }
 
-	    if ($i->right) {
+        if ($i->left && $i->right) {
+            // todo
+            return;
+        }
+        if ($i->left) {
+            $i->interval = &$i->left->interval;
+            $i->left = null;
+        }
 
-	    }
+        if ($i->right) {
+        }
 
-	if ($this->max > $i->getEnd()) {
-		if ($this->left) {
-			$this->left->add($i);
-		} else {
-			$this->left = new Node($i);
-		}
-	} else {
-		$this->max = $i->getEnd();
-		if ($this->right) {
-			$this->right->add($i);
-		} else {
-			$this->right = new Node($i);
-		}
-	}
-	return;
-    	if (!$this->root) {
-	    return [];
-    	}
-	$this->root->remove($i);
+        if ($this->max > $i->getEnd()) {
+            if ($this->left) {
+                $this->left->add($i);
+            } else {
+                $this->left = new Node($i);
+            }
+        } else {
+            $this->max = $i->getEnd();
+            if ($this->right) {
+                $this->right->add($i);
+            } else {
+                $this->right = new Node($i);
+            }
+        }
+
+        return;
+        if (!$this->root) {
+            return [];
+        }
+        $this->root->remove($i);
     }
 
     public function add(IntervalInterface $i)
     {
-    	if (!$this->root) {
-	    $this->root = new Node($i);
-	    return;
-    	}
-	$this->root->add($i);
+        if (!$this->root) {
+            $this->root = new Node($i);
+
+            return;
+        }
+        $this->root->add($i);
     }
 }

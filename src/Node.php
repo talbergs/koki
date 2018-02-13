@@ -11,7 +11,7 @@ namespace MartanLV\Koki;
  */
 class Node
 {
-	public $root;
+    public $root;
     /**
      * @var Interval
      */
@@ -71,6 +71,7 @@ class Node
     {
         return iterator_to_array($this->yieldInterSelectNode($low, $high), false);
     }
+
     /**
      * returns intervals that touches a given range.
      *
@@ -95,6 +96,7 @@ class Node
     {
         return iterator_to_array($this->yieldSelectNode($low, $high), false);
     }
+
     /**
      * returns intervals that touches a given range.
      *
@@ -120,6 +122,7 @@ class Node
             yield from $this->left->yieldInterSelectNode($low, $high);
         }
     }
+
     /**
      * returns intervals that touches a given range.
      *
@@ -208,39 +211,39 @@ class Node
 
     public function remove()
     {
-	if ($this->max > $i->getEnd()) {
-		if ($this->left) {
-			$this->left->add($i);
-		} else {
-			$this->left = new Node($i);
-		}
-	} else {
-		$this->max = $i->getEnd();
-		if ($this->right) {
-			$this->right->add($i);
-		} else {
-			$this->right = new Node($i);
-		}
-	}
+        if ($this->max > $i->getEnd()) {
+            if ($this->left) {
+                $this->left->add($i);
+            } else {
+                $this->left = new self($i);
+            }
+        } else {
+            $this->max = $i->getEnd();
+            if ($this->right) {
+                $this->right->add($i);
+            } else {
+                $this->right = new self($i);
+            }
+        }
     }
-   
+
     public function add(IntervalInterface $i)
     {
-	if ($this->max > $i->getEnd()) {
-		if ($this->left) {
-			$this->left->add($i);
-		} else {
-			$this->left = new Node($i);
-			$this->left->root = &$this;
-		}
-	} else {
-		$this->max = $i->getEnd();
-		if ($this->right) {
-			$this->right->add($i);
-		} else {
-			$this->right = new Node($i);
-			$this->right->root = &$this;
-		}
-	}
+        if ($this->max > $i->getEnd()) {
+            if ($this->left) {
+                $this->left->add($i);
+            } else {
+                $this->left = new self($i);
+                $this->left->root = &$this;
+            }
+        } else {
+            $this->max = $i->getEnd();
+            if ($this->right) {
+                $this->right->add($i);
+            } else {
+                $this->right = new self($i);
+                $this->right->root = &$this;
+            }
+        }
     }
 }
