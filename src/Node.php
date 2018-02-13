@@ -11,6 +11,7 @@ namespace MartanLV\Koki;
  */
 class Node
 {
+	public $root;
     /**
      * @var Interval
      */
@@ -38,7 +39,7 @@ class Node
         $this->interval = $interval;
         $this->left = $left;
         $this->right = $right;
-        $this->max = $max ? $max : $interval->high;
+        $this->max = $max ? $max : $interval->getEnd();
     }
 
     /**
@@ -66,6 +67,15 @@ class Node
      *
      * @return void
      */
+    public function interSelectNode(int $low, int $high): array
+    {
+        return iterator_to_array($this->yieldInterSelectNode($low, $high), false);
+    }
+    /**
+     * returns intervals that touches a given range.
+     *
+     * @return void
+     */
     public function interSelect(int $low, int $high): array
     {
         return iterator_to_array($this->yieldInterSelect($low, $high), false);
@@ -81,6 +91,35 @@ class Node
         return iterator_to_array($this->yieldSelect($low, $high), false);
     }
 
+    public function selectNode(int $low, int $high): array
+    {
+        return iterator_to_array($this->yieldSelectNode($low, $high), false);
+    }
+    /**
+     * returns intervals that touches a given range.
+     *
+     * @return generator
+     */
+    public function yieldInterSelectNode(int $low, int $high)
+    {
+        $edgeR = $high >= $this->interval->getStart() && $high <= $this->interval->getEnd();
+        $edgeL = $low >= $this->interval->getStart() && $low <= $this->interval->getEnd();
+        $part = $this->interval->getStart() >= $low && $this->interval->getEnd() <= $high;
+        $whole = $this->interval->getStart() <= $low && $this->interval->getEnd() >= $high;
+
+        $currentNodeMatches = $edgeR || $edgeL || $part || $whole;
+        if ($currentNodeMatches) {
+            yield $this;
+        }
+
+        if ($this->right && $this->interval->getStart() <= $high) {
+            yield from $this->right->yieldInterSelectNode($low, $high);
+        }
+
+        if ($this->left && $this->left->max >= $low) {
+            yield from $this->left->yieldInterSelectNode($low, $high);
+        }
+    }
     /**
      * returns intervals that touches a given range.
      *
@@ -112,6 +151,36 @@ class Node
      *
      * @return generator
      */
+    public function yieldSelectNode(int $low, int $high)
+    {
+        /*
+         * does current node matches?
+         */
+        if ($this->interval->getEnd() < $high && $this->interval->getStart() > $low) {
+            yield $this;
+        }
+
+        /*
+         * since the node's low value is less than the "select end" value,
+         * we must search in the right subtree. If it exists.
+         */
+        if ($this->right && $this->interval->getStart() < $high) {
+            yield from $this->right->yieldSelectNode($low, $high);
+        }
+        /*
+         * If the left subtree's max exceeds the quiery's low value,
+         * so we must search the left subtree as well.
+         */
+        if ($this->left && $this->left->max > $low) {
+            yield from $this->left->yieldSelectNode($low, $high);
+        }
+    }
+
+    /**
+     * returns intervals that fall within interval range.
+     *
+     * @return generator
+     */
     public function yieldSelect(int $low, int $high)
     {
         /*
@@ -135,5 +204,43 @@ class Node
         if ($this->left && $this->left->max > $low) {
             yield from $this->left->yieldSelect($low, $high);
         }
+    }
+
+    public function remove()
+    {
+	if ($this->max > $i->getEnd()) {
+		if ($this->left) {
+			$this->left->add($i);
+		} else {
+			$this->left = new Node($i);
+		}
+	} else {
+		$this->max = $i->getEnd();
+		if ($this->right) {
+			$this->right->add($i);
+		} else {
+			$this->right = new Node($i);
+		}
+	}
+    }
+   
+    public function add(IntervalInterface $i)
+    {
+	if ($this->max > $i->getEnd()) {
+		if ($this->left) {
+			$this->left->add($i);
+		} else {
+			$this->left = new Node($i);
+			$this->left->root = &$this;
+		}
+	} else {
+		$this->max = $i->getEnd();
+		if ($this->right) {
+			$this->right->add($i);
+		} else {
+			$this->right = new Node($i);
+			$this->right->root = &$this;
+		}
+	}
     }
 }

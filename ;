@@ -12,7 +12,6 @@ namespace MartanLV\Koki;
  */
 class Tree extends Node
 {
-	public $root;
     /**
      * undocumented function.
      *
@@ -154,22 +153,12 @@ class Tree extends Node
     {
 	    if (!$i->left && !$i->right) {
 		    if ($i->root) {
-			    $i->root = null;
+			    $i->root->interval = $i->interval;
 		    }
-		    return;
 	    }
 
-	    if ($i->left && $i->right) {
-	    		// todo
-		    return;
-	    }
-	    if ($i->left) {
-	    	$i->interval = &$i->left->interval;
-	    	$i->left = null;
-	    }
-
-	    if ($i->right) {
-
+	    if (!$i->left || !$i->right) {
+	    
 	    }
 
 	if ($this->max > $i->getEnd()) {
